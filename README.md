@@ -1,0 +1,1 @@
+# omd-auth-cookie-manager
