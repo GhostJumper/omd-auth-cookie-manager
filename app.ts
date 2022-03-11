@@ -4,7 +4,10 @@ import morgan from "morgan"
 const debug = require('debug')('app')
 
 import authCookieRouter from './src/router/AuthCookieRouter'
+import botRouter from "./src/router/BotRouter"
+import AuthCookieService from "./src/service/authCookie/AuthCookieService"
 import databaseService from "./src/service/database/DatabaseService"
+import { Bot } from "./src/service/database/entity/Bot"
 
 class App {
   private port = process.env.PORT || 3000
@@ -17,6 +20,15 @@ class App {
   private async setup() {
     await databaseService.connect()
     this.setupRoutes()
+
+    /*
+    const bot = await Bot.findByUsername('peniss')
+    AuthCookieService.addAuthCookie(bot, {
+      authCookie: "string",
+      expires: new Date(),
+      lastUsed: new Date()
+    })
+    */
   }
 
   private setupRoutes() {
@@ -24,6 +36,7 @@ class App {
     this.app.use(express.json())
     
     this.app.use('/authcookie', authCookieRouter)
+    this.app.use('/bot', botRouter)
     
     
     this.app.get('/', (req: Request, res: Response) => {

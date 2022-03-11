@@ -1,16 +1,26 @@
 import mongoose from 'mongoose'
-import { Bot } from '../database/entity/Bot'
+import { Bot, BotDocument, ICookie } from '../database/entity/Bot'
 
 export default class AuthCookieService {
 
     static async getOldestAuthCookie(): Promise<string> {
-        const bot = await Bot.findOldestCookie()
+        const cookie = await Bot.findOldestCookie()
 
-        if (!bot)
+        if (!cookie)
             throw new Error('No oldest Cookie available')
     
-        return bot?.cookie?.authCookie
-
+        return cookie?.authCookie
+    
     }
+
+    static async addAuthCookie(bot: BotDocument, cookie: ICookie): Promise<BotDocument> {
+        return bot.addCookie(cookie)
+    }
+    
+    /*
+    static async pollAuthCookie(bot: Bot): Promise<BotDocument> {
+        
+    }
+    */
 
 }
