@@ -21,7 +21,7 @@ interface BotModel extends Model<BotDocument> {
     createBot: (bot: IBot) => Promise<BotDocument>
 
     findByUsername: (username: string) => Promise<BotDocument>
-    findOldestCookie: () => Promise<ICookie>
+    findOldestCookieBot: () => Promise<BotDocument>
 }
 
 const BotSchema = new Schema<BotDocument>({
@@ -62,9 +62,8 @@ BotSchema.statics.findByUsername = async function (username: string): Promise<Bo
     return this.findOne({ username })
 }
 
-BotSchema.statics.findOldestCookie = async function (): Promise<ICookie> {
-    const result = await this.findOne({}, {}, { sort: { 'cookie.lastUsed': 1 } })
-    return result?.cookie
+BotSchema.statics.findOldestCookieBot = async function (): Promise<BotDocument> {
+    return await this.findOne({}, {}, { sort: { 'cookie.lastUsed': 1 } })
 }
 
 const Bot = model<BotDocument, BotModel>('bots', BotSchema)

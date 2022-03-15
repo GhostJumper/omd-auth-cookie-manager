@@ -7,7 +7,7 @@ import authCookieRouter from './src/router/AuthCookieRouter'
 import botRouter from "./src/router/BotRouter"
 import AuthCookieService from "./src/service/authCookie/AuthCookieService"
 import databaseService from "./src/service/database/DatabaseService"
-import { Bot } from "./src/service/database/entity/Bot"
+import { Bot, IBot } from "./src/service/database/entity/Bot"
 
 class App {
   private port = process.env.PORT || 3000
@@ -21,29 +21,21 @@ class App {
     await databaseService.connect()
     this.setupRoutes()
 
-    /*
-    const bot = await Bot.findByUsername('peniss')
-    AuthCookieService.addAuthCookie(bot, {
-      authCookie: "string",
-      expires: new Date(),
-      lastUsed: new Date()
-    })
-    */
   }
 
   private setupRoutes() {
     this.app.use(morgan('tiny'))
     this.app.use(express.json())
-    
+
     this.app.use('/authcookie', authCookieRouter)
     this.app.use('/bot', botRouter)
-    
-    
+
+
     this.app.get('/', (req: Request, res: Response) => {
       res.send('Hello World')
     })
-    
-    
+
+
     this.app.listen(this.port, () => {
       debug(`Listening on port ${chalk.green(this.port)}`)
     })
