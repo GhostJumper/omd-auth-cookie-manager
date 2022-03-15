@@ -15,6 +15,7 @@ interface IBot {
 
 interface BotDocument extends IBot, Document {
     addCookie: (cookie: ICookie) => Promise<BotDocument>
+    removeCookie: () => Promise<BotDocument>
 }
 
 interface BotModel extends Model<BotDocument> {
@@ -54,6 +55,14 @@ BotSchema.methods.addCookie = async function (cookie: ICookie): Promise<BotDocum
                 expires: cookie.expires,
                 lastUsed: cookie.lastUsed
             }
+        }
+    })
+}
+
+BotSchema.methods.removeCookie = async function (): Promise<BotDocument> {
+    return this.updateOne({
+        $unset: {
+            cookie: ""
         }
     })
 }

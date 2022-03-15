@@ -1,8 +1,6 @@
 import { Request, Response, Router } from "express"
 import { body, validationResult } from "express-validator"
-import AuthCookieService from "../service/authCookie/AuthCookieService"
 import BotService from "../service/bot/BotService"
-import { IBot } from "../service/database/entity/Bot"
 
 const botRouter = Router()
 

@@ -11,7 +11,7 @@ export default class AuthCookieService {
         const cookie = bot?.cookie
 
         if (!cookie)
-            throw new Error('No oldest Cookie available')
+            throw new Error('No Cookie available')
 
         this.addAuthCookie(bot, {
             authCookie: cookie.authCookie,
@@ -26,6 +26,10 @@ export default class AuthCookieService {
 
     static async addAuthCookie(bot: BotDocument, cookie: ICookie): Promise<BotDocument> {
         return bot.addCookie(cookie)
+    }
+
+    static async removeAuthCookie(bot: BotDocument): Promise<BotDocument> {
+        return bot.removeCookie()
     }
 
 
