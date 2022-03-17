@@ -1,6 +1,6 @@
 {
     "env": {
-        "DEBUG": "app",
+        "DEBUG": "app, app:*",
         "port": "3000",
 
         "DB_NAME": "omd",

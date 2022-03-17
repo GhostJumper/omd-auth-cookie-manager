@@ -9,14 +9,13 @@ class DatabaseService {
   private parserOptions = {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    serverSelectionTimeoutMS: 10000, // Keep trying to send operations for 5 seconds
-    socketTimeoutMS: 45000,          // Close sockets after 45 seconds of inactivity
+    serverSelectionTimeoutMS: 10000,
+    socketTimeoutMS: 45000,
   }
 
-  private connection = mongoose.connection
-
   async connect() {
-    await mongoose.connect(this.address, this.parserOptions)
+    const connection = await mongoose.connect(this.address, this.parserOptions)
+    debug(`Connected to ${connection.connection.host}`)
   }
 }
 
