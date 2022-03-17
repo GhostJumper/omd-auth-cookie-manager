@@ -1,5 +1,3 @@
-import { cookie } from 'express-validator';
-import mongoose from 'mongoose'
 import { Bot, BotDocument, ICookie } from '../database/entity/Bot'
 var basic = require('basic-authorization-header');
 var axios = require('axios');
@@ -34,7 +32,7 @@ export default class AuthCookieService {
 
 
     static async pollNewAuthCookie(bot: BotDocument): Promise<BotDocument> {
-        
+
         var config = {
             method: 'get',
             url: 'https://api.vrchat.cloud/api/1/auth/user',
@@ -45,7 +43,7 @@ export default class AuthCookieService {
 
         const response = await axios(config)
         const result = response.headers['set-cookie'][0]
-        
+
         const cookie = result.split(';')[0].trim().replace('auth=', '')
         const expires = new Date(Date.parse(result.split(';')[3].trim().replace('Expires=', '')))
 
