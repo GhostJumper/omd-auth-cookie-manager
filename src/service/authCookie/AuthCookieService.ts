@@ -7,16 +7,17 @@ export default class AuthCookieService {
     static async getOldestAuthCookie(): Promise<string> {
         const bot = await Bot.findOldestCookieBot()
         const cookie = bot?.cookie
+        //TODO: implement expiration check and renew cookie if expired
 
         if (!cookie)
             throw new Error('No Cookie available')
 
+        //This just updates the lastUsed time
         this.addAuthCookie(bot, {
             authCookie: cookie.authCookie,
             expires: cookie.expires,
             lastUsed: new Date(Date.now())
         })
-
 
         return cookie?.authCookie
 
@@ -47,10 +48,7 @@ export default class AuthCookieService {
         const cookie = result.split(';')[0].trim().replace('auth=', '')
         const expires = new Date(Date.parse(result.split(';')[3].trim().replace('Expires=', '')))
 
-        console.log(cookie)
-        console.log(expires)
-
-        this.addAuthCookie(bot, {
+        await this.addAuthCookie(bot, {
             authCookie: cookie,
             expires: expires,
             lastUsed: new Date(Date.now())
