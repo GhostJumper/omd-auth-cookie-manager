@@ -72,7 +72,7 @@ BotSchema.statics.findByUsername = async function (username: string): Promise<Bo
 }
 
 BotSchema.statics.findOldestCookieBot = async function (): Promise<BotDocument> {
-    return await this.findOne({}, {}, { sort: { 'cookie.lastUsed': 1 } })
+    return await this.findOne({}, {}, { sort: { 'cookie.lastUsed': 1 } }).where('cookie').ne(null)
 }
 
 const Bot = model<BotDocument, BotModel>('bots', BotSchema)

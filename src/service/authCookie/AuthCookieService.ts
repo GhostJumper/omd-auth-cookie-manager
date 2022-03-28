@@ -1,13 +1,18 @@
 import { Bot, BotDocument, ICookie } from '../database/entity/Bot'
-var basic = require('basic-authorization-header');
-var axios = require('axios');
+var basic = require('basic-authorization-header')
+var axios = require('axios')
+const debug = require('debug')('AuthCookieService')
 
 export default class AuthCookieService {
 
     static async getOldestAuthCookie(): Promise<string> {
         const bot = await Bot.findOldestCookieBot()
         const cookie = bot?.cookie
-        //TODO: implement expiration check and renew cookie if expired
+
+        if (bot.cookie && bot.cookie.expires.getTime() < Date.now()) {
+            this.pollNewAuthCookie(bot)
+            return this.getOldestAuthCookie()
+        }
 
         if (!cookie)
             throw new Error('No Cookie available')
@@ -28,7 +33,8 @@ export default class AuthCookieService {
     }
 
     static async removeAuthCookie(bot: BotDocument): Promise<BotDocument> {
-        return bot.removeCookie()
+        await bot.removeCookie()
+        return Bot.findByUsername(bot.username)
     }
 
 
@@ -54,8 +60,7 @@ export default class AuthCookieService {
             lastUsed: new Date(Date.now())
         })
 
-        return bot
+        return Bot.findByUsername(bot.username)
     }
-
 
 }
