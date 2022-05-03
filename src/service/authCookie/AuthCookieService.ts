@@ -9,7 +9,7 @@ export default class AuthCookieService {
         const bot = await Bot.findOldestCookieBot()
         const cookie = bot?.cookie
 
-        if (bot.cookie && bot.cookie.expires.getTime() < Date.now()) {
+        if (cookie && cookie.expires.getTime() < Date.now()) {
             this.pollNewAuthCookie(bot)
             return this.getOldestAuthCookie()
         }

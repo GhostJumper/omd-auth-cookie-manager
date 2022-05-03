@@ -18,7 +18,6 @@ class App {
   private async setup() {
     await databaseService.connect()
     this.setupRoutes()
-
   }
 
   private setupRoutes() {
