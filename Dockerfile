@@ -1,11 +1,31 @@
-FROM node:17.7.1-alpine
+# syntax=docker/dockerfile:1
+FROM node:18-alpine3.14 as builder
 
 WORKDIR /home/node/app
-COPY . .
 
-RUN npm i
+COPY src/. src/.
+COPY app.ts .
+COPY package.json .
+COPY package-lock.json .
+COPY tsconfig.json .
 
+RUN npm install
+RUN npm i -g typescript
+RUN tsc 
+
+
+FROM node:18-alpine3.14
+
+WORKDIR /home/node/app
+
+COPY package.json .
+COPY package-lock.json .
+COPY --from=builder /home/node/app/build/ .
+
+RUN npm install --production
+
+EXPOSE 3000
 
 USER node
 
-EXPOSE 3000
+ENTRYPOINT [ "node", "app.js" ]
