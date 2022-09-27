@@ -1,6 +1,5 @@
 import mongoose from 'mongoose'
 import DatabaseConfig from '../../config/DatabaseConfig'
-const debug = require('debug')('app:DatabaseService')
 
 class DatabaseService {
 
@@ -15,7 +14,7 @@ class DatabaseService {
 
   async connect() {
     const connection = await mongoose.connect(this.address, this.parserOptions)
-    debug(`Connected to ${connection.connection.host}`)
+    console.log(`Connected to ${connection.connection.host}`)
   }
 }
 

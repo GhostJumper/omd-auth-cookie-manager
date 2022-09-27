@@ -6,12 +6,20 @@
 	"customizations": {
 		"vscode": {
 			"extensions": [
-				"dbaeumer.vscode-eslint"
+				"dbaeumer.vscode-eslint",
+				"mhutchie.git-graph",
+				"donjayamanne.githistory",
+				"GitHub.copilot",
+				"eamodio.gitlens",
+				"VisualStudioExptTeam.vscodeintellicode",
+				"VisualStudioExptTeam.intellicode-api-usage-examples",
+				"humao.rest-client"
 			]
 		}
 	},
 	"forwardPorts": [
 		8080
 	],
-	"remoteUser": "node"
+	"remoteUser": "node",
+	"postStartCommand": "npm install package.json --save-prod && npm install package.json --save-dev"
 }

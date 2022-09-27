@@ -1,7 +1,6 @@
 import { Bot, BotDocument, ICookie } from '../database/entity/Bot'
 var basic = require('basic-authorization-header')
 var axios = require('axios')
-const debug = require('debug')('AuthCookieService')
 
 export default class AuthCookieService {
 

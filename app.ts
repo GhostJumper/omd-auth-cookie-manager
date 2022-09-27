@@ -1,7 +1,5 @@
-import chalk from "chalk"
 import express from "express"
 import morgan from "morgan"
-const debug = require('debug')('app')
 
 import authCookieRouter from './src/router/AuthCookieRouter'
 import botRouter from "./src/router/BotRouter"
@@ -28,7 +26,7 @@ class App {
     this.app.use('/bot', botRouter)
 
     this.app.listen(this.port, () => {
-      debug(`Listening on port ${chalk.green(this.port)}`)
+      console.log(`Listening on port ${this.port}`)
     })
   }
 }
