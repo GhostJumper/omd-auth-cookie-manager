@@ -21,7 +21,7 @@
     "basic-authorization-header": "^0.2.7",
     "express": "^4.17.2",
     "express-validator": "^6.14.0",
-    "mongoose": "^6.2.5"
+    "mongoose": "^6.11.3"
   },
   "devDependencies": {
     "@types/debug": "^4.1.7",
