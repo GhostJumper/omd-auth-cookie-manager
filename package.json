@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/GhostJumper/omd-auth-cookie-manager#readme",
   "dependencies": {
-    "axios": "^0.25.0",
+    "axios": "^1.6.0",
     "basic-authorization-header": "^0.2.7",
     "express": "^4.17.2",
     "express-validator": "^6.14.0",
